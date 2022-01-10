@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asociarme</title>
+</head>
+<style>
+    :root {
+        --color-primary: #7a6eae;
+        --color-secondary: #8dc8ac;
+    }
+
+    .my-container{
+        max-width: 800px;
+        margin: 50px auto;
+        background-color: rgba(241, 241, 241, 0.85);
+        padding: 30px;
+        text-align: center;
+    }
+
+    .box-screen{
+      padding: 30px 0;
+    }
+
+    input[type='checkbox'] { zoom: 1.4; }
+
+    #screenResponse{
+      padding-top: 100px;
+      height: 400px;
+      background-color: var(--color-primary);
+      color: white;
+    }
+    .radio-toolbar{
+       color: white;
+    }
+
+    .radio-toolbar input[type="radio"],
+    .radio-perio input[type="radio"],
+    .radio-type input[type="radio"]  {
+        opacity: 0;
+        position: fixed;
+        width: 0;
+    }
+
+    .radio-toolbar label {
+      width: 24%;
+      margin-right: 0.4%;
+      text-align: center;
+      height: 120px;
+      display: inline-block;
+      background-color: var(--color-primary);
+      padding: 50px 0 20px 0;
+      font-size: 3em;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .radio-toolbar input[type="radio"]:checked+label {
+        background-color: var(--color-secondary);
+    }
+
+    .radio-type{
+        width: 340px;
+        margin: auto;
+        margin-bottom: 10px!important;
+    }
+
+    .radio-type label {
+        width: 50%;
+        text-align: center;
+        height: 40px;
+        display: inline-block;
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1;
+        position: relative;
+    }
+
+    .radio-type input[type="radio"]:checked+label {
+        background-color: var(--color-secondary);
+        z-index: 2;
+    }
+
+    .radio-perio{
+         width: 340px;
+         margin: auto;
+    }
+
+    .radio-perio label {
+        width: 30%;
+        text-align: center;
+        height: 40px;
+        display: inline-block;
+        background-color: #ccc;
+        padding: 10px;
+        border-radius: 20px;
+        z-index: 1;
+        position: relative;
+    }
+
+    .radio-perio input[type="radio"]:checked+label {
+        background-color: var(--color-secondary);
+        z-index: 2;
+    }
+    #lparticular{
+      margin-right: -40px;
+    }
+
+
+    .my-hiden {
+        display: none!important;
+    }
+
+    .no-show {
+        visibility: hidden;
+    }
+
+    .row{ 
+        margin: 30px auto;
+        text-align: center;
+      }
+  
+    .row-f{ 
+        display: flex;
+        flex-direction: row;
+    }
+
+    .my-alert{
+      display: block;
+      color: red;
+      position: relative;
+      margin-top: -15px;
+      margin-right: 20px;
+      font-size: 0.8em;
+    }
+    .border-red{
+      border:1px solid red!important;
+    }
+    .c-red{
+      color: red;
+    }
+    .col{
+      width: 100%;
+      padding: 25px 15px 0 0;
+    }
+
+    .t-right{
+      text-align: right;
+    }
+
+    #inOtro {
+        width: 30px;
+    }
+
+    #description {
+        min-height: 30px;
+        width: 100%;
+        background-color: var(--color-secondary);
+        color: white;
+        font-size: 1.2em;
+        font-weight: bold;
+        text-align: center;
+        padding: 1.3em;
+    }
+
+    #ocantidad{
+    background-color: transparent;
+    width: 90%;
+    height: 30px;
+    text-align: center;
+    font-size: 0.7em;
+    outline: 0;
+    color: white;
+    border-width: 0 0 2px;
+    }
+
+    #ocantidad:focus {
+      border-color: white
+    }
+
+    #ocantidad::placeholder { 
+      color: white
+    }
+
+    * { box-sizing: border-box; }
+
+    .inputStyle {
+    width: 70%;
+    padding: 12px!important;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+  }
+
+  .labelStyle {
+    width: 30%;
+    padding: 12px 12px 12px 0;
+    display: inline-block;
+  }
+
+  .buttonStyle {
+    min-width: 150px;
+    background-color:var(--color-primary);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    border-radius: 20px;
+    font-weight: bold;
+  }
+
+  .buttonStyle:hover {
+    opacity: 0.9;
+  }
+
+@media screen and (max-width: 600px) {
+  .my-container{
+        padding: 0;
+    }
+  .radio-toolbar label {
+    margin-right: -0.2%;
+  }
+  .row-f{ 
+        flex-direction: column;
+   }
+    /* modifica el tema divi padre donde se monta */
+    .et_pb_row {
+      width: 95%;
+    }
+}
+</style>
+
+<body>
+  <div class="my-container">
+    <div id="screenDona" class="box-screen">
+      <form id="formul-email">
+        <div class="radio-toolbar">
+            <input type="radio" id="One" name="donacion" value="10" checked>
+            <label for="One">10€</label>
+            <input type="radio" id="Two" name="donacion" value="20">
+            <label for="Two">20€</label>
+            <input type="radio" id="Three" name="donacion" value="50">
+            <label for="Three">50€</label>
+            <input type="radio" id="Four" name="donacion" value="otra">
+            <label for="Four"><input type="text" id="ocantidad" value="Otra"></label>
+        </div>
+        <div id="description">
+            <span id="descOne">Con 10€ al mes durante un año podemos becar a una persona el transporte para acudir a todos los cursos y sesiones que necesite</span>
+            <span id="descTwo" class="my-hiden">Con 20€ al mes durante un año podemos pagar a una persona el carnet de Camión para conseguir un empleo en el sector en auge de la distribución</span>
+            <span id="descThree" class="my-hiden">Con 50€ al mes durante un año podemos pagar a una persona el Carnet de Conducir, lo que aumentará notablemente sus posibilidades de conseguir un empleo</span>
+            <span id="descFour" class="my-hiden">Introduce tu aportación y periodicidad elegida. 1.500€ El coste de un Itinerario de Inserción completo, un “Viaje a la dignidad”.  La puerta a una nueva vida</span>
+        </div>
+        <div class="row-f">
+          <div class="col">
+            <p>Quiero hacerme socio/a de Xxxxxxxxx con una aportación periódica</p>
+          </div>
+        </div>
+        <div id="perio" class="radio-perio">
+          <input type="radio" id="mensual" name="periodo" value="mensual" checked>
+          <label for="mensual" id="lmensual">Mensual</label>
+          <input type="radio" id="trimestral" name="periodo" value="trimestral">
+          <label for="trimestral" id="ltrimestral">Trimestral</label>
+          <input type="radio" id="anual" name="periodo" value="anual">
+          <label for="anual" id="lanual">Anual</label>
+        </div>
+        <div class="row-f">
+          <div class="col">
+            <label for="email">Email<span class="c-red">*</span>:</label>
+            <input type="email" id="email" name="email" class="inputStyle irequired" placeholder="Email">
+            <small class="my-alert my-hiden" id="a-email">Necesitamos un email correcto</small>
+          </div>
+        </div>
+        <div class="row-f">
+          <div class="col">
+            <label for="privacidad" id="a-privac" title="El Responsable del Tratamiento de estos datos es la FUNDACIÓN XXXXXXXX, con la finalidad de gestionar la donación a la misma y el posterior Certificado Fiscal. La Legitimación del Tratamiento la otorga el consentimiento de la persona interesada. No se cederán datos a terceros, salvo obligación legal. La persona interesada podrá ejercer Derechos de Acceso, Rectificación, Supresión y Portabilidad de los datos aportados ante FUNDACIÓN XXXXXXXX y limitación u oposición al tratamiento"> 
+              <input type="checkbox" id="privacidad">
+              <a href="/politica-privacidad/" target="_black">
+                He leído y acepto la política de privacidad</a>
+            </label>
+          </div>
+          <div class="col t-right">
+            <input type="hidden" name="origen" value="1_asociate_email">
+            <button id="btn-socio" class="buttonStyle">Quiero asociarme</button>
+          </div>
+        </div>  
+      </form> 
+    </div>
+
+    <div id="screenForm" class="my-hiden box-screen">
+      <h3>Tu cuota es de <span id="scantidad"></span> euros</h3>
+      <form id="formulario">
+        <div class="radio-type row">
+          <input type="radio" id="particular" name="tipo" value="particular" checked>
+          <label for="particular" id="lparticular">Particular</label>
+          <input type="radio" id="empresa" name="tipo" value="empresa">
+          <label for="empresa">Empresa</label>
+        </div>
+        <div id="eleR-social" class="row-f no-show">
+          <div class="col t-right">
+            <label for="r_social">Razon Social<span class="c-red">*</span>:</label>
+            <input type="text" name="r_social" id="r_social"  class="inputStyle irequired" placeholder="Razon social">
+            <small class="my-alert my-hiden" id="a-r_social">Este un dato necesario</small>
+          </div>
+        </div>
+        <div class="row-f">
+          <div class="col t-right">
+            <label for="name" id="lname">Nombre<span class="c-red">*</span>:</label>
+            <input type="text" name="nombre" id="name"  class="inputStyle irequired" placeholder="Nombre y Apellidos">
+            <small class="my-alert my-hiden" id="a-name">Este un dato necesario</small>
+          </div>
+          <div class="col t-right">
+            <label for="nif" id="lnif">NIF<span class="c-red">*</span>:</label>
+            <input type="text" name="nif" id="nif" class="inputStyle irequired" placeholder="nif">
+            <small class="my-alert my-hiden" id="a-nif">Es un dato necesario</small>
+          </div>
+        </div>
+        <div class="row-f t-right">
+          <div class="col">
+            <label for="phone">Teléfono<span class="c-red">*</span>:</label>
+            <input type="text" name="telefono" id="phone" name="phone"  class="inputStyle irequired" placeholder="teléfono">
+            <small class="my-alert my-hiden" id="a-phone">Es un dato necesario</small>
+          </div>
+          <div class="col t-right">
+            <label for="provinces">Provincia<span class="c-red">*</span>:</label>
+            <select id="provinces" name="provincia" class="inputStyle">
+              <option value="">Provincia</option>
+            </select>
+            <small class="my-alert my-hiden" id="a-provinces">Es un dato necesario</small>
+          </div>
+        </div>
+        <div class="row-f t-right">
+          <div class="col">
+            <label for="phone">IBAN: </label>
+            ES<input type="text" name="iban" id="iban" name="iban"  class="inputStyle" placeholder="IBAN">
+          </div>
+        </div>
+        <div class="row-f">
+          <div class="col t-right">
+          <input type="hidden" name="email" id="email1">
+          <input type="hidden" name="donacion" id="donation1">
+          <input type="hidden" name="periodo" id="periodo1">
+          <input type="hidden" name="origen" value="2_asociate">
+          <button id="btn-socio-send" class="buttonStyle">Asociarme</button>
+        </div>
+        </div>
+      </form>
+    </div> 
+    <div id="screenResponse" class="my-hiden box-screen">
+      <h3>Gracias</h3>
+      <div class="radio-type row">
+        <h3>Gracias por tu aportacion</h3>
+      </div>
+    </div>
+
+    <script>
+
+        provincias = ['Alava','Albacete','Alicante','Almería','Asturias','Avila','Badajoz','Barcelona','Burgos','Cáceres',
+        'Cádiz','Cantabria','Castellón','Ciudad Real','Córdoba','La Coruña','Cuenca','Gerona','Granada','Guadalajara',
+        'Guipúzcoa','Huelva','Huesca','Islas Baleares','Jaén','León','Lérida','Lugo','Madrid','Málaga','Murcia','Navarra',
+        'Orense','Palencia','Las Palmas','Pontevedra','La Rioja','Salamanca','Segovia','Sevilla','Soria','Tarragona',
+        'Santa Cruz de Tenerife','Teruel','Toledo','Valencia','Valladolid','Vizcaya','Zamora','Zaragoza']
+
+        var select = document.getElementById("provinces");
+
+        for(index in provincias) {
+            select.options[select.options.length] = new Option(provincias[index], provincias[index]);
+        }
+
+        screenForm = document.getElementById("screenForm")
+        screenDona = document.getElementById("screenDona")
+        screenResponse = document.getElementById("screenResponse")
+
+        document.getElementById("One").addEventListener("click", showDesc)
+        document.getElementById("Two").addEventListener("click", showDesc)
+        document.getElementById("Three").addEventListener("click", showDesc)
+        document.getElementById("Four").addEventListener("click", showDesc)
+        document.getElementById("ocantidad").addEventListener("click", inputfoco)
+
+        const arrClass = document.querySelectorAll(".irequired");
+        for (let i of arrClass) {
+          i.addEventListener("click", input_alert_out)
+        }
+
+        document.getElementById("btn-socio").addEventListener("click", showForm)
+        document.getElementById("btn-socio-send").addEventListener("click", sendForm)
+
+
+        document.getElementById("particular").addEventListener("click", showFormParticular)
+        document.getElementById("empresa").addEventListener("click", showFormEmpresa)
+
+        function showFormParticular() {
+          document.getElementById("eleR-social").classList.add("no-show");
+          document.getElementById("lnif").innerHTML='NIF<span class="c-red">*</span>';
+          document.getElementById("nif").placeholder="NIF";
+          document.getElementById("lname").innerHTML='Nombre<span class="c-red">*</span>';
+        }
+        function showFormEmpresa() {
+          
+          document.getElementById("eleR-social").classList.remove("no-show");
+          document.getElementById("lnif").innerHTML='CIF<span class="c-red">*</span>';
+          document.getElementById("nif").placeholder="CIF";
+          document.getElementById("lname").innerHTML='Contacto<span class="c-red">*</span>';
+        }
+
+        function showForm(e) {
+          e.preventDefault();
+          email = document.getElementById('email')
+          if (email.value.length < 6 || !ValidateEmail(email.value)){
+            input_alert(email)
+            return null
+          }
+          var checkBox = document.getElementById("privacidad");
+          if (checkBox.checked != true){
+            document.getElementById("a-privac").classList.add("border-red");
+            return null
+          }
+          cantidad =  getBtnRadio('donacion') 
+          if (cantidad == 'otra'){
+            input_o = document.getElementById('ocantidad')
+            cantidad = input_o.value
+          }
+          document.getElementById('scantidad').innerHTML=cantidad
+          document.getElementById('donation1').value=cantidad
+          document.getElementById('email1').value=document.getElementById('email').value
+          document.getElementById('periodo1').value=getBtnRadio('periodo')
+          sendFormMail()
+          screenForm.classList.remove("my-hiden");
+          screenDona.classList.add("my-hiden");
+        }
+
+
+        function getBtnRadio(id){
+          valOptions = document.getElementsByName(id)
+          valOptions.forEach((element) => {
+                if (element.checked) {
+                  cantidad = element.value
+                }
+            }) 
+          return cantidad
+        }
+
+        function input_alert(element){
+          element.classList.add("border-red")
+          document.getElementById('a-'+element.id).classList.remove("my-hiden")
+        }
+        function input_alert_out(){
+          element = this
+          element.classList.remove("border-red")
+          document.getElementById('a-'+element.id).classList.add("my-hiden")
+        }
+
+        function hideAll() {
+            console.log("oculta all");
+            descOne.classList.add("my-hiden");
+            descTwo.classList.add("my-hiden");
+            descThree.classList.add("my-hiden");
+            descFour.classList.add("my-hiden");
+        }
+
+        function showDesc() {
+            hideAll()
+            if (this.value == "otra"){
+              input_o = document.getElementById('ocantidad')
+              input_o.value = ""
+              input_o.focus()
+            }
+            document.getElementById("desc" + this.id).classList.remove("my-hiden");
+        }
+
+        function inputfoco(){
+          document.getElementById("Four").checked = true;
+          input_o = document.getElementById('ocantidad')
+          input_o.value = ""
+          hideAll()
+          document.getElementById("descFour").classList.remove("my-hiden");
+        }
+
+        function sendFormMail(){
+          const data = new FormData(document.getElementById('formul-email'));
+          sendRequest('/api_send_email/envia.php', data)
+        }        
+
+        function sendForm(e){
+          e.preventDefault();
+          if (getBtnRadio('tipo')=="empresa" ){
+            rsocial = document.getElementById('r_social')
+            if (rsocial.value.length < 2 ){
+              input_alert(rsocial)
+              return null
+            }
+          }
+          iname = document.getElementById('name')
+          if (iname.value.length < 2 ){
+            input_alert(iname)
+            return null
+          }
+          nif = document.getElementById('nif')
+          if (nif.value.length < 2 ){
+            input_alert(nif)
+            return null
+          }
+          phone = document.getElementById('phone')
+          if (phone.value.length < 2 ){
+            input_alert(phone)
+            return null
+          }
+          provincia = document.getElementById('provinces')
+          console.log(provincia)
+          if (provincia.value.length < 2 ){
+            input_alert(provincia)
+            return null
+          }
+          const data = new FormData(document.getElementById('formulario'));
+          sendRequest('/api_send_email/envia.php', data)
+          window.location.href = "/asociate-gracias/"
+
+          // screenResponse.classList.remove("my-hiden");
+          // screenForm.classList.add("my-hiden");
+        }
+
+        function sendRequest(url,data){
+         
+            fetch(url , {
+              method: 'POST',
+              body: data
+            })
+            .then(function(response) {
+              if(response.ok) {
+                  return response.text()
+              } else {
+                  throw "Error en la llamada Ajax";
+              }
+
+            })
+            .then(function(texto) {
+              console.log(texto);
+            })
+            .catch(function(err) {
+              console.log(err);
+            });
+        }
+
+        function ValidateEmail(mail){
+          return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(mail)
+        }
+
+    </script>
+
+</body>
+
+</html>
